@@ -1,20 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+/* Pretendard - 한국어 최적화 모던 폰트 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+@import url('https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.css');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-body: 'Noto Sans KR', sans-serif;
-  --color-primary: #C8102E;
-  --color-dark: #0A0A0A;
-  --color-sand: #F5F0E8;
-  --color-accent: #FF6B35;
+  --brand-blue: #0066FF;
+  --brand-blue-dark: #0047B3;
+  --brand-yellow: #FFD500;
+  --ink-900: #0A0E27;
+  --ink-700: #2D3561;
+  --ink-500: #6B7194;
 }
 
 * {
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -22,43 +26,117 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  background: var(--color-dark);
-  color: var(--color-sand);
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-feature-settings: 'ss02', 'ss03';
+  background: #FFFFFF;
+  color: var(--ink-900);
   overflow-x: hidden;
+  letter-spacing: -0.01em;
 }
 
-/* 숫자 카운터 그리드 배경 효과 */
-.grid-bg {
-  background-image:
-    linear-gradient(rgba(200,16,46,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(200,16,46,0.05) 1px, transparent 1px);
-  background-size: 60px 60px;
+/* 커스텀 유틸리티 */
+.text-balance { text-wrap: balance; }
+
+/* 노란 하이라이트 마커 효과 */
+.highlight-yellow {
+  background: linear-gradient(180deg, transparent 60%, #FFD500 60%);
+  padding: 0 4px;
+  font-weight: 700;
 }
 
-/* 애니메이션 딜레이 유틸 */
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
+/* 블루 하이라이트 */
+.highlight-blue {
+  background: linear-gradient(180deg, transparent 60%, #E6F0FF 60%);
+  padding: 0 4px;
+  color: #0047B3;
+  font-weight: 700;
+}
 
-.opacity-0-init { opacity: 0; }
+/* 부드러운 스크롤 애니메이션 */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-/* 붉은 밑줄 호버 */
-.red-underline {
+/* 이미지 로딩 상태 */
+.img-cover {
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 그라데이션 오버레이 */
+.hero-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 14, 39, 0.25) 0%,
+    rgba(10, 14, 39, 0.45) 60%,
+    rgba(10, 14, 39, 0.75) 100%
+  );
+}
+
+/* 숫자 증가 애니메이션 */
+.counter {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* 러너 실루엣 그리드 장식 */
+.dot-pattern {
+  background-image: radial-gradient(circle, rgba(0, 102, 255, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* 버튼 호버 물결 효과 */
+.btn-primary {
   position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.red-underline::after {
+.btn-primary::before {
   content: '';
   position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--color-primary);
-  transition: width 0.3s ease;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 213, 0, 0.3) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.red-underline:hover::after {
-  width: 100%;
+.btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+/* 무한 슬라이드 */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-inner {
+  display: flex;
+  animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* 펄스 링 */
+.pulse-ring {
+  position: relative;
+}
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  border: 2px solid #FFD500;
+  animation: pulseRing 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+}
+@keyframes pulseRing {
+  0% { transform: scale(0.95); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
 }

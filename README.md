@@ -1,194 +1,103 @@
-# 🏃 ○○대학교 마라톤 웹사이트
+# 🏃 Run for 독거노인 — Han-gang Charity Marathon
 
-Next.js 14 + Supabase + Vercel 기반 마라톤 홍보 및 참가 신청 웹사이트
+**V2 업데이트** — 밝고 활기찬 디자인 + 한강 자선 마라톤 컨셉
 
 ---
 
-## 📁 프로젝트 구조
+## ✨ 이번 업데이트 주요 변경
+
+- 🎨 **디자인 전면 리뉴얼** — 다크 → 라이트 / 깔끔 + 친근
+- 💙💛 **컬러**: Blue #0066FF + Yellow #FFD500 + White
+- 🌉 **한강 배경 사진** 메인 히어로 + 곳곳에 삽입 (Unsplash 자동)
+- ✍️ **Pretendard 폰트** — 한국어 최적화 모던 서체
+- 🎯 **"Run for 독거노인"** 컨셉으로 따뜻한 메시지 강화
+- ♾️ **무한 슬라이드 배너** (Marquee)
+- 🔵 **새로운 Navbar** — 스크롤에 따라 자연스럽게 변화
+
+---
+
+## 🚀 기존 프로젝트에 덮어쓰기 (간단!)
+
+### Supabase / GitHub / Vercel 재설정 필요 없음 ✅
+
+1. 이 zip 파일 압축 풀기
+2. **기존 `marathon-web` 폴더의 파일들을 모두 이 새 파일로 교체**
+   - `app/` 폴더 전체 교체
+   - `components/` 폴더 전체 교체
+   - `tailwind.config.js`, `next.config.js` 교체
+   - `.env.local` 파일은 **절대 교체하지 말고 그대로 두세요!** ⚠️
+3. VSCode 터미널에서:
+   ```bash
+   npm install     # 혹시 변경된 패키지 설치
+   npm run dev     # 로컬에서 확인
+   ```
+4. 이상 없으면 GitHub에 push:
+   ```bash
+   git add .
+   git commit -m "디자인 리뉴얼 v2"
+   git push
+   ```
+5. Vercel이 자동으로 재배포! 🎉
+
+---
+
+## 📁 파일 구조
 
 ```
 marathon-web/
 ├── app/
-│   ├── layout.tsx              # 공통 레이아웃 (Navbar, Footer 포함)
-│   ├── globals.css             # 전역 스타일 + 구글 폰트
-│   ├── page.tsx                # 메인 페이지 (마라톤/학교 소개)
-│   ├── mission/page.tsx        # Mission 페이지 (참여 이유)
-│   ├── info/page.tsx           # 정보 페이지 (코스/일정/혜택/QnA)
-│   ├── register/page.tsx       # 참가 신청 페이지 (3단계 폼)
-│   └── api/register/route.ts   # 신청 API (Supabase 저장)
+│   ├── layout.tsx
+│   ├── globals.css           ← Pretendard, 새 컬러 시스템
+│   ├── page.tsx              ← 새 메인 (한강 히어로)
+│   ├── mission/page.tsx      ← 5개 이유 섹션
+│   ├── info/page.tsx         ← 코스/일정/혜택/QnA
+│   ├── register/page.tsx     ← 3단계 폼
+│   └── api/register/route.ts
 ├── components/
-│   ├── Navbar.tsx              # 상단 네비게이션 바
-│   ├── Footer.tsx              # 하단 푸터
-│   └── QnaAccordion.tsx        # QnA 아코디언
-├── lib/
-│   └── supabase.ts             # Supabase 클라이언트
-├── supabase-setup.sql          # DB 테이블 초기 설정 SQL
-├── .env.local.example          # 환경변수 템플릿
-└── README.md
+│   ├── Navbar.tsx            ← 투명→흰색 전환
+│   ├── Footer.tsx
+│   └── QnaAccordion.tsx
+├── lib/supabase.ts
+├── tailwind.config.js
+├── next.config.js            ← Unsplash 이미지 허용
+└── ...
 ```
 
 ---
 
-## 🚀 시작하기 (로컬 개발)
+## ✏️ 나중에 채울 빈칸
 
-### 1단계 — Node.js 설치 확인
-
-```bash
-node -v   # v18 이상이어야 합니다
-npm -v
-```
-
-없으면 https://nodejs.org 에서 LTS 버전 설치
-
----
-
-### 2단계 — 프로젝트 의존성 설치
-
-```bash
-cd marathon-web
-npm install
-```
-
----
-
-### 3단계 — Supabase 프로젝트 생성
-
-1. https://supabase.com 접속 → **Start your project**
-2. 새 프로젝트 생성 (이름: `marathon`, 비밀번호 저장해두기)
-3. 프로젝트 생성 완료 후 **SQL Editor** 클릭
-4. `supabase-setup.sql` 파일 내용 전체 복사 → 붙여넣기 → **Run**
-5. 왼쪽 **Table Editor** 에서 `participants` 테이블 생성 확인
-
----
-
-### 4단계 — 환경변수 설정
-
-```bash
-# .env.local.example 을 복사해서 .env.local 생성
-cp .env.local.example .env.local
-```
-
-Supabase 대시보드 → **Project Settings** → **API** 에서 값 확인:
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-```
-
-`.env.local` 파일을 열어서 위 값을 붙여넣으세요.
-
----
-
-### 5단계 — 로컬 실행
-
-```bash
-npm run dev
-```
-
-브라우저에서 http://localhost:3000 열기 ✅
-
----
-
-## ☁️ Vercel 배포
-
-### 방법 A: GitHub 연동 (추천)
-
-1. 이 프로젝트를 GitHub에 올리기
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin https://github.com/본인아이디/marathon-web.git
-   git push -u origin main
-   ```
-
-2. https://vercel.com 접속 → **New Project**
-3. GitHub 저장소 연결
-4. **Environment Variables** 탭에서 환경변수 추가:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-5. **Deploy** 클릭
-
-→ 배포 완료! `https://marathon-web-xxx.vercel.app` 주소 생성 🎉
-
-### 방법 B: Vercel CLI
-
-```bash
-npm i -g vercel
-vercel
-# 안내에 따라 환경변수 입력
-```
-
----
-
-## 🗄 Supabase — 신청자 데이터 확인
-
-Supabase 대시보드 → **Table Editor** → `participants` 테이블
-
-| 컬럼 | 설명 |
-|---|---|
-| id | 고유 ID (자동) |
-| name | 이름 |
-| email | 이메일 (중복 불가) |
-| phone | 전화번호 |
-| affiliation | 소속 (학부생 / 외부인 등) |
-| course | 코스 (5km / 10km / 하프) |
-| shirt_size | 티셔츠 사이즈 |
-| status | 상태 (대기 / 확정 / 취소) |
-| created_at | 신청 일시 |
-
-CSV로 내보내기: 오른쪽 상단 **Export** 버튼
-
----
-
-## ✏️ 나중에 채워야 할 빈칸 목록
-
-아래 항목들을 세부 정보가 확정되면 코드에서 찾아 교체하세요.
-
-| 항목 | 파일 위치 | 현재 값 |
+| 항목 | 위치 | 현재 |
 |---|---|---|
 | 대회 날짜 | `app/page.tsx`, `app/layout.tsx` | `XXXX년 XX월 XX일` |
-| 대회 장소 | `app/page.tsx` | `○○대학교` |
-| 학교 이름 | 모든 파일 | `○○대학교` |
-| 예상 참가 인원 | `app/page.tsx` | `XXX명` |
+| 한강 정확한 장소 | `app/page.tsx`, `app/info/page.tsx` | `한강공원` (일반) |
+| 예상 참가자 수 | `app/page.tsx` | `XXX+` |
 | 문의 이메일 | `components/Footer.tsx` | `marathon@university.ac.kr` |
-| 코스 지도 | `app/info/page.tsx` | 지도 이미지 미삽입 |
-| 참가비 안내 | `components/QnaAccordion.tsx` | 추후 업데이트 예정 |
-| 학교 설립연도 | `app/page.tsx` | `XXXX년` |
+| 전화번호 | `components/Footer.tsx` | `02-XXX-XXXX` |
+| 학교명 | 전체 | `○○대학교` |
+| 코스 지도 | `app/info/page.tsx` | 플레이스홀더 |
 
 ---
 
-## 🎨 커스터마이즈
+## 🎨 컬러 팔레트
 
-### 색상 변경
-
-`tailwind.config.js` 에서:
-
-```js
-colors: {
-  primary: '#C8102E',   // 메인 빨간색 → 학교 컬러로 변경
-  accent: '#FF6B35',    // 강조색
-  dark: '#0A0A0A',      // 배경색
-  sand: '#F5F0E8',      // 밝은 텍스트
-}
-```
-
-### 폰트 변경
-
-`app/globals.css` 상단 Google Fonts import 수정:
+CSS 변수 (`app/globals.css`):
 
 ```css
-@import url('https://fonts.googleapis.com/css2?family=원하는폰트&display=swap');
+--brand-blue: #0066FF;       /* 메인 블루 */
+--brand-blue-dark: #0047B3;  /* 호버 */
+--brand-yellow: #FFD500;     /* 포인트 노랑 */
+--ink-900: #0A0E27;          /* 본문 검정 */
+--ink-500: #6B7194;          /* 보조 텍스트 */
+--ink-100: #F1F3FA;          /* 배경 회색 */
 ```
+
+색상을 바꾸고 싶으면 `tailwind.config.js`의 `colors.brand` 섹션만 수정하면 전체에 반영됩니다.
 
 ---
 
-## 📝 나중에 추가할 수 있는 기능
+## 📸 이미지 출처
 
-- [ ] 결제 시스템 (Toss Payments)
-- [ ] 확인 이메일 자동 발송 (Resend)
-- [ ] 관리자 대시보드 (신청자 목록 조회/관리)
-- [ ] SNS 공유 버튼
-- [ ] 코스 지도 (카카오맵 API)
-- [ ] 참가 인원 실시간 카운터
-- [ ] OG 이미지 (SNS 공유 시 미리보기)
+- Unsplash에서 자동 로드 (`images.unsplash.com`)
+- Next.js `next.config.js`에 도메인 허용 설정됨
+- 원하면 자체 이미지로 교체 가능 (각 페이지의 `<Image src="..." />` 수정)

@@ -1,190 +1,239 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import QnaAccordion from '@/components/QnaAccordion'
 
 const courses = [
   {
     name: '5KM',
-    distance: '5km',
-    level: '입문자',
-    color: '#4CAF50',
-    desc: '처음 마라톤에 도전하는 분들을 위한 코스입니다. 캠퍼스 주변을 한 바퀴 도는 친숙한 루트.',
-    time: '약 30분~60분',
+    distance: '5',
+    level: 'FUN RUN',
+    levelKo: '입문자',
+    color: 'bg-brand-yellow text-ink-900',
+    accent: 'text-brand-blue',
+    desc: '처음 도전하는 러너를 위한 친근한 코스. 한강의 풍경을 여유롭게 즐길 수 있습니다.',
+    time: '약 30~60분',
   },
   {
     name: '10KM',
-    distance: '10km',
-    level: '중급자',
-    color: '#FF6B35',
-    desc: '어느 정도 달리기 경험이 있는 분들께 추천하는 코스입니다. 캠퍼스와 인근 공원을 통과합니다.',
-    time: '약 50분~90분',
+    distance: '10',
+    level: 'CHALLENGE',
+    levelKo: '중급자',
+    color: 'bg-brand-blue text-white',
+    accent: 'text-brand-yellow',
+    desc: '꾸준히 달려온 러너에게 적합한 코스. 한강공원 일대를 여유롭게 관통합니다.',
+    time: '약 50~90분',
   },
   {
     name: 'HALF',
-    distance: '21.1km',
-    level: '숙련자',
-    color: '#C8102E',
-    desc: '하프마라톤 풀 코스. 도심과 자연이 어우러진 도전적인 루트로 진정한 러너를 위한 코스.',
-    time: '약 90분~150분',
+    distance: '21.1',
+    level: 'HALF MARATHON',
+    levelKo: '숙련자',
+    color: 'bg-ink-900 text-white',
+    accent: 'text-brand-yellow',
+    desc: '하프마라톤 풀 코스. 도전적인 거리로 진정한 러너를 위한 최고의 경험.',
+    time: '약 90~150분',
   },
 ]
 
 const benefits = [
-  { icon: '🥇', title: '완주 메달', desc: '모든 완주자에게 대회 공식 메달 증정' },
-  { icon: '👕', title: '공식 티셔츠', desc: '사전 신청자 전원 대회 기념 티셔츠 제공' },
-  { icon: '🎁', title: '참가 기념품', desc: '특별 굿즈 및 협찬 기업 제품 포함 가방' },
-  { icon: '🍌', title: '보급 물품', desc: '코스 중 에너지 바, 물, 전해질 음료 제공' },
-  { icon: '📸', title: '공식 포토존', desc: '전문 사진작가 배치, 완주 사진 무료 공유' },
-  { icon: '🏆', title: '시상식', desc: '코스별 상위 입상자 시상 및 특별 상품' },
+  { icon: '🥇', title: '완주 메달', desc: '모든 완주자에게 특별 제작 메달 증정' },
+  { icon: '👕', title: '공식 티셔츠', desc: '사전 신청자 전원 기념 티셔츠 제공' },
+  { icon: '🎁', title: '러너 키트', desc: '간식, 음료, 굿즈 포함 특별 키트' },
+  { icon: '🍌', title: '보급 물품', desc: '코스 중 에너지 바 · 물 · 전해질 음료' },
+  { icon: '📸', title: '완주 사진', desc: '전문 사진작가의 공식 완주 사진 무료 제공' },
+  { icon: '💙', title: '기부 증서', desc: '독거노인 기부 참여 증서 발급' },
 ]
 
 const schedule = [
-  { time: '07:00', event: '현장 등록 및 번호표 배부 시작' },
-  { time: '08:00', event: '대회 개회식 및 준비 운동' },
-  { time: '08:30', event: '하프마라톤(21.1km) 출발' },
-  { time: '09:00', event: '10km 코스 출발' },
-  { time: '09:30', event: '5km 코스 출발' },
-  { time: '11:00', event: '5km 코스 종료 예정' },
-  { time: '12:00', event: '10km 코스 종료 예정' },
-  { time: '13:00', event: '하프마라톤 종료 예정' },
-  { time: '14:00', event: '시상식 및 폐회식' },
+  { time: '07:00', event: '현장 등록 및 번호표 배부 시작', active: false },
+  { time: '08:00', event: '대회 개회식 및 준비 운동', active: false },
+  { time: '08:30', event: '하프마라톤(21.1km) 출발', active: true },
+  { time: '09:00', event: '10km 코스 출발', active: true },
+  { time: '09:30', event: '5km 코스 출발', active: true },
+  { time: '11:00', event: '5km 코스 종료 예정', active: false },
+  { time: '12:00', event: '10km 코스 종료 예정', active: false },
+  { time: '13:00', event: '하프마라톤 종료 예정', active: false },
+  { time: '14:00', event: '시상식 및 폐회식', active: false },
 ]
 
 export default function InfoPage() {
   return (
-    <div className="bg-[#0A0A0A] min-h-screen">
-      {/* 헤더 */}
-      <section className="pt-32 pb-20 px-6 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full grid-bg opacity-50" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <p className="text-[#C8102E] text-xs tracking-widest uppercase mb-4">Race Information</p>
-          <h1
-            className="text-6xl md:text-9xl text-white leading-none mb-6"
-            style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}
-          >
-            정보
+    <div className="bg-white">
+
+      {/* 히어로 */}
+      <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-gradient-to-br from-brand-yellow-light via-white to-brand-blue-light">
+        <div className="absolute top-0 right-0 w-96 h-96 dot-pattern opacity-40" />
+        <div className="relative max-w-5xl mx-auto">
+          <p className="inline-block bg-ink-900 text-brand-yellow px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+            Race Information
+          </p>
+          <h1 className="text-5xl md:text-8xl font-black text-ink-900 leading-[0.95] mb-8 text-balance">
+            대회<br />
+            <span className="text-brand-blue">모든 정보</span>
           </h1>
-          <p className="text-white/60 text-lg max-w-xl leading-relaxed">
-            코스, 일정, 혜택 및 자주 묻는 질문을 확인하세요.
+          <p className="text-xl md:text-2xl text-ink-700 leading-relaxed max-w-2xl font-medium">
+            코스, 일정, 혜택까지. 참가 전에 꼭 확인해 보세요.
           </p>
         </div>
       </section>
 
-      {/* ─── 코스 안내 ─── */}
-      <section className="pb-24 px-6 max-w-7xl mx-auto">
-        <h2
-          className="text-4xl text-white mb-12"
-          style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}
-        >
-          코스 안내
-        </h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {courses.map((course) => (
-            <div
-              key={course.name}
-              className="border border-white/10 p-8 hover:border-white/30 transition-colors group"
-            >
-              <div className="flex items-start justify-between mb-6">
-                <span
-                  className="text-6xl"
-                  style={{ fontFamily: 'var(--font-display)', color: course.color }}
-                >
-                  {course.name}
-                </span>
-                <span
-                  className="text-xs px-2 py-1 border text-white/60"
-                  style={{ borderColor: course.color + '60' }}
-                >
-                  {course.level}
-                </span>
-              </div>
-              <p className="text-white/60 text-sm leading-relaxed mb-4">{course.desc}</p>
-              <div className="flex items-center gap-2 text-white/40 text-xs">
-                <span>⏱</span>
-                <span>{course.time}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 코스 맵 안내 */}
-        <div className="mt-6 border border-white/10 p-8 flex items-center justify-center h-48 text-white/30 text-sm">
-          🗺 코스 지도는 확정 후 업데이트 예정입니다.
-        </div>
-      </section>
-
-      {/* ─── 일정 ─── */}
-      <section className="py-24 px-6 border-y border-white/10 bg-white/[0.02]">
+      {/* 코스 */}
+      <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
-          <h2
-            className="text-4xl text-white mb-12"
-            style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}
-          >
-            당일 일정
-          </h2>
-          <div className="max-w-2xl">
-            {schedule.map((item, i) => (
-              <div key={i} className="flex gap-6 group">
-                {/* 타임라인 선 */}
-                <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full border-2 border-[#C8102E] bg-[#0A0A0A] shrink-0 mt-1.5 group-hover:bg-[#C8102E] transition-colors" />
-                  {i < schedule.length - 1 && (
-                    <div className="w-px flex-1 bg-white/10 mt-1" />
-                  )}
+          <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
+            <div>
+              <p className="inline-block bg-brand-blue-light text-brand-blue px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                Courses
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-ink-900 leading-tight">
+                코스 안내
+              </h2>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {courses.map((course) => (
+              <div key={course.name} className={`${course.color} rounded-3xl p-8 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500 cursor-pointer`}>
+                <div className="relative z-10">
+                  <span className={`${course.accent} font-black text-xs tracking-[0.2em] block mb-4`}>
+                    {course.level}
+                  </span>
+                  <div className="flex items-baseline gap-1 mb-4">
+                    <span className="text-8xl font-black leading-none">{course.distance}</span>
+                    <span className="text-2xl font-black">km</span>
+                  </div>
+                  <p className="text-sm font-medium opacity-90 leading-relaxed mb-6">{course.desc}</p>
+                  <div className="flex items-center gap-2 text-sm font-bold pt-4 border-t border-current/20">
+                    <span>⏱</span>
+                    <span>{course.time}</span>
+                  </div>
                 </div>
-                <div className="pb-8">
-                  <span className="text-[#C8102E] text-sm font-mono font-semibold">{item.time}</span>
-                  <p className="text-white/70 mt-0.5">{item.event}</p>
+                <div className="absolute -bottom-10 -right-4 text-[14rem] font-black opacity-[0.06] leading-none pointer-events-none">
+                  {course.distance}
                 </div>
               </div>
             ))}
           </div>
-          <p className="text-white/30 text-sm mt-4">* 일정은 변경될 수 있습니다. 최종 일정은 대회 전 공지됩니다.</p>
-        </div>
-      </section>
 
-      {/* ─── 혜택 ─── */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
-        <h2
-          className="text-4xl text-white mb-12"
-          style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}
-        >
-          참가 혜택
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {benefits.map((b) => (
-            <div
-              key={b.title}
-              className="border border-white/10 p-6 hover:border-[#C8102E]/40 transition-colors"
-            >
-              <div className="text-3xl mb-3">{b.icon}</div>
-              <h3 className="text-white font-semibold mb-1">{b.title}</h3>
-              <p className="text-white/40 text-sm leading-relaxed">{b.desc}</p>
+          {/* 코스 맵 (플레이스홀더) */}
+          <div className="mt-8 relative rounded-3xl overflow-hidden bg-ink-100 h-72 md:h-96">
+            <Image
+              src="https://images.unsplash.com/photo-1560457079-9a6532ccb118?w=2000&auto=format&fit=crop&q=80"
+              alt="한강 코스 지도"
+              fill
+              className="img-cover opacity-60"
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center bg-white/95 backdrop-blur-md rounded-2xl px-8 py-6 shadow-2xl">
+                <p className="text-4xl mb-2">🗺</p>
+                <p className="text-ink-900 font-bold">상세 코스 지도는 준비 중입니다</p>
+                <p className="text-ink-500 text-sm mt-1">대회 확정 후 공개 예정</p>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* ─── QnA ─── */}
-      <section className="py-24 px-6 border-t border-white/10 bg-white/[0.02]">
+      {/* 일정 */}
+      <section className="py-24 px-6 bg-ink-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-[1fr_2fr] gap-12">
+            <div>
+              <p className="inline-block bg-brand-yellow text-ink-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                Schedule
+              </p>
+              <h2 className="text-4xl md:text-5xl font-black text-ink-900 leading-tight mb-6">
+                당일<br />일정
+              </h2>
+              <p className="text-ink-500 leading-relaxed">
+                오전 7시 등록 시작, 오후 2시 폐회식까지.<br />
+                모든 타임라인을 확인하세요.
+              </p>
+              <p className="text-xs text-ink-500 mt-6 italic">
+                * 일정은 변경될 수 있습니다.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-3xl p-8 md:p-10">
+              <div className="space-y-0">
+                {schedule.map((item, i) => (
+                  <div key={i} className="flex gap-5 group">
+                    <div className="flex flex-col items-center shrink-0">
+                      <div className={`w-4 h-4 rounded-full border-4 shrink-0 transition-all ${
+                        item.active
+                          ? 'bg-brand-yellow border-brand-blue scale-110'
+                          : 'bg-white border-ink-300'
+                      }`} />
+                      {i < schedule.length - 1 && (
+                        <div className="w-0.5 flex-1 bg-ink-100 mt-1" />
+                      )}
+                    </div>
+                    <div className={`pb-6 ${item.active ? '' : 'opacity-70'}`}>
+                      <span className={`font-black text-lg ${item.active ? 'text-brand-blue' : 'text-ink-500'}`}>
+                        {item.time}
+                      </span>
+                      <p className={`${item.active ? 'text-ink-900 font-bold' : 'text-ink-700'} mt-0.5`}>
+                        {item.event}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 혜택 */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="inline-block bg-brand-yellow text-ink-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+              Benefits
+            </p>
+            <h2 className="text-4xl md:text-6xl font-black text-ink-900 leading-tight">
+              참가자를 위한<br />풍성한 혜택
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+            {benefits.map((b) => (
+              <div
+                key={b.title}
+                className="bg-ink-100 rounded-2xl p-6 md:p-8 hover:bg-brand-blue-light transition-colors group cursor-default"
+              >
+                <div className="text-5xl mb-4">{b.icon}</div>
+                <h3 className="text-ink-900 font-black text-lg mb-2">{b.title}</h3>
+                <p className="text-ink-500 text-sm leading-relaxed">{b.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* QnA */}
+      <section className="py-24 px-6 bg-ink-100">
         <div className="max-w-3xl mx-auto">
-          <p className="text-[#C8102E] text-xs tracking-widest uppercase mb-4">FAQ</p>
-          <h2
-            className="text-4xl text-white mb-12"
-            style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}
-          >
-            자주 묻는 질문
-          </h2>
+          <div className="text-center mb-12">
+            <p className="inline-block bg-brand-blue text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+              FAQ
+            </p>
+            <h2 className="text-4xl md:text-6xl font-black text-ink-900 leading-tight">
+              자주 묻는 질문
+            </h2>
+          </div>
           <QnaAccordion />
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 text-center px-6">
+      <section className="py-20 px-6 bg-brand-blue text-center text-white">
+        <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">준비되셨나요?</h2>
         <Link
           href="/register"
-          className="inline-block px-12 py-4 bg-[#C8102E] text-white font-semibold hover:bg-[#FF6B35] transition-colors tracking-wider"
+          className="btn-primary inline-flex items-center gap-2 px-10 py-5 bg-brand-yellow text-ink-900 rounded-full font-black text-lg shadow-2xl hover:scale-105 transition-transform"
         >
-          지금 참가 신청하기 →
+          참가 신청하기 →
         </Link>
       </section>
     </div>

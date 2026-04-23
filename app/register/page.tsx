@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 type FormData = {
   name: string
@@ -13,13 +14,7 @@ type FormData = {
 }
 
 const initialForm: FormData = {
-  name: '',
-  email: '',
-  phone: '',
-  affiliation: '',
-  course: '',
-  shirt_size: '',
-  agree: false,
+  name: '', email: '', phone: '', affiliation: '', course: '', shirt_size: '', agree: false,
 }
 
 const steps = ['개인 정보', '참가 정보', '확인 및 제출']
@@ -66,9 +61,7 @@ export default function RegisterPage() {
   const handleSubmit = async () => {
     const err = validateStep()
     if (err) { setError(err); return }
-    setError('')
-    setLoading(true)
-
+    setError(''); setLoading(true)
     try {
       const res = await fetch('/api/register', {
         method: 'POST',
@@ -87,114 +80,112 @@ export default function RegisterPage() {
 
   if (submitted) {
     return (
-      <div className="bg-[#0A0A0A] min-h-screen flex items-center justify-center px-6">
-        <div className="text-center max-w-lg">
-          <div className="text-7xl mb-6">🎉</div>
-          <h1
-            className="text-5xl text-white mb-4"
-            style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.1em' }}
-          >
+      <div className="bg-gradient-to-br from-brand-blue-light via-white to-brand-yellow-light min-h-screen flex items-center justify-center px-6 py-24">
+        <div className="text-center max-w-lg bg-white rounded-3xl p-10 md:p-14 shadow-2xl">
+          <div className="w-20 h-20 mx-auto mb-6 bg-brand-yellow rounded-full flex items-center justify-center text-5xl">
+            🎉
+          </div>
+          <h1 className="text-4xl md:text-5xl font-black text-ink-900 mb-4 leading-tight">
             신청 완료!
           </h1>
-          <p className="text-white/60 leading-relaxed mb-2">
-            <span className="text-white font-semibold">{form.name}</span>님의 참가 신청이 완료되었습니다.
+          <p className="text-ink-700 leading-relaxed mb-2 text-lg">
+            <span className="font-black text-brand-blue">{form.name}</span>님의 참가 신청이 완료되었습니다.
           </p>
-          <p className="text-white/60 mb-8">
-            확인 메일을 <span className="text-[#FF6B35]">{form.email}</span>로 발송했습니다.
+          <p className="text-ink-500 mb-8">
+            확인 메일을 <span className="text-ink-900 font-bold">{form.email}</span>로 발송했습니다.
           </p>
-          <div className="border border-[#C8102E]/30 bg-[#C8102E]/5 p-6 text-sm text-white/50 mb-8">
-            <p className="mb-1">코스: <span className="text-white">{form.course}</span></p>
-            <p>티셔츠: <span className="text-white">{form.shirt_size}</span></p>
+
+          <div className="bg-brand-blue-light rounded-2xl p-6 text-left space-y-2 mb-8">
+            <div className="flex justify-between">
+              <span className="text-ink-500 text-sm font-semibold">참가 코스</span>
+              <span className="text-ink-900 font-black">{form.course}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-ink-500 text-sm font-semibold">티셔츠</span>
+              <span className="text-ink-900 font-black">{form.shirt_size}</span>
+            </div>
           </div>
-          <button
-            onClick={() => { setSubmitted(false); setForm(initialForm); setStep(0) }}
-            className="text-white/40 text-sm underline"
-          >
-            처음으로 돌아가기
-          </button>
+
+          <Link href="/" className="inline-block text-ink-500 text-sm underline hover:text-brand-blue">
+            홈으로 돌아가기
+          </Link>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="bg-[#0A0A0A] min-h-screen pt-24 pb-20 px-6">
+    <div className="bg-gradient-to-br from-brand-blue-light via-white to-brand-yellow-light min-h-screen pt-24 pb-20 px-6">
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
-        <p className="text-[#C8102E] text-xs tracking-widest uppercase mb-4">Registration</p>
-        <h1
-          className="text-5xl md:text-7xl text-white mb-12"
-          style={{ fontFamily: 'var(--font-display)', letterSpacing: '0.05em' }}
-        >
-          참가 신청
-        </h1>
+        <p className="inline-block bg-brand-blue text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+          Registration
+        </p>
+        <h1 className="text-5xl md:text-7xl font-black text-ink-900 mb-3 leading-tight">참가 신청</h1>
+        <p className="text-ink-500 mb-12 text-lg">세 단계만 거치면 신청이 완료됩니다.</p>
 
         {/* 스텝 인디케이터 */}
-        <div className="flex items-center gap-0 mb-12">
+        <div className="flex items-center gap-0 mb-10">
           {steps.map((s, i) => (
             <div key={s} className="flex items-center flex-1 last:flex-none">
               <div className="flex flex-col items-center">
                 <div
-                  className={`w-8 h-8 flex items-center justify-center text-xs font-bold transition-colors ${
-                    i <= step
-                      ? 'bg-[#C8102E] text-white'
-                      : 'border border-white/20 text-white/30'
+                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-black transition-colors ${
+                    i <= step ? 'bg-brand-blue text-white' : 'bg-white border-2 border-ink-300 text-ink-500'
                   }`}
                 >
                   {i < step ? '✓' : i + 1}
                 </div>
-                <span className={`text-xs mt-1 whitespace-nowrap ${i <= step ? 'text-white/70' : 'text-white/20'}`}>
+                <span className={`text-xs mt-2 font-semibold whitespace-nowrap ${i <= step ? 'text-ink-900' : 'text-ink-500'}`}>
                   {s}
                 </span>
               </div>
               {i < steps.length - 1 && (
-                <div className={`flex-1 h-px mx-2 mb-4 transition-colors ${i < step ? 'bg-[#C8102E]' : 'bg-white/10'}`} />
+                <div className={`flex-1 h-1 mx-2 mb-6 rounded-full transition-colors ${i < step ? 'bg-brand-blue' : 'bg-ink-300'}`} />
               )}
             </div>
           ))}
         </div>
 
-        {/* 폼 영역 */}
-        <div className="border border-white/10 p-8 space-y-6">
+        {/* 폼 */}
+        <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl space-y-6">
 
-          {/* Step 0: 개인 정보 */}
           {step === 0 && (
             <>
               <div>
-                <label className="block text-white/60 text-xs uppercase tracking-wider mb-2">이름 *</label>
+                <label className="block text-ink-900 font-bold text-sm mb-2">이름 *</label>
                 <input
                   type="text" name="name" value={form.name} onChange={handleChange}
                   placeholder="홍길동"
-                  className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-[#C8102E] transition-colors placeholder-white/20"
+                  className="w-full bg-ink-100 border-2 border-transparent text-ink-900 px-5 py-4 rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-white transition-all placeholder-ink-500 font-medium"
                 />
               </div>
               <div>
-                <label className="block text-white/60 text-xs uppercase tracking-wider mb-2">이메일 *</label>
+                <label className="block text-ink-900 font-bold text-sm mb-2">이메일 *</label>
                 <input
                   type="email" name="email" value={form.email} onChange={handleChange}
                   placeholder="example@email.com"
-                  className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-[#C8102E] transition-colors placeholder-white/20"
+                  className="w-full bg-ink-100 border-2 border-transparent text-ink-900 px-5 py-4 rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-white transition-all placeholder-ink-500 font-medium"
                 />
               </div>
               <div>
-                <label className="block text-white/60 text-xs uppercase tracking-wider mb-2">전화번호 *</label>
+                <label className="block text-ink-900 font-bold text-sm mb-2">전화번호 *</label>
                 <input
                   type="tel" name="phone" value={form.phone} onChange={handleChange}
                   placeholder="010-0000-0000"
-                  className="w-full bg-white/5 border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-[#C8102E] transition-colors placeholder-white/20"
+                  className="w-full bg-ink-100 border-2 border-transparent text-ink-900 px-5 py-4 rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-white transition-all placeholder-ink-500 font-medium"
                 />
               </div>
             </>
           )}
 
-          {/* Step 1: 참가 정보 */}
           {step === 1 && (
             <>
               <div>
-                <label className="block text-white/60 text-xs uppercase tracking-wider mb-2">소속 *</label>
+                <label className="block text-ink-900 font-bold text-sm mb-2">소속 *</label>
                 <select
                   name="affiliation" value={form.affiliation} onChange={handleChange}
-                  className="w-full bg-[#0A0A0A] border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-[#C8102E] transition-colors"
+                  className="w-full bg-ink-100 border-2 border-transparent text-ink-900 px-5 py-4 rounded-2xl focus:outline-none focus:border-brand-blue focus:bg-white transition-all font-medium cursor-pointer"
                 >
                   <option value="">선택해주세요</option>
                   <option value="학부생">○○대학교 학부생</option>
@@ -204,41 +195,47 @@ export default function RegisterPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-white/60 text-xs uppercase tracking-wider mb-3">참가 코스 *</label>
+                <label className="block text-ink-900 font-bold text-sm mb-3">참가 코스 *</label>
                 <div className="grid grid-cols-3 gap-3">
-                  {['5km', '10km', '하프 (21.1km)'].map((c) => (
-                    <label key={c} className={`cursor-pointer border p-4 text-center text-sm transition-colors ${
-                      form.course === c
-                        ? 'border-[#C8102E] bg-[#C8102E]/10 text-white'
-                        : 'border-white/10 text-white/50 hover:border-white/30'
+                  {[
+                    { val: '5km', label: '5', color: 'bg-brand-yellow text-ink-900' },
+                    { val: '10km', label: '10', color: 'bg-brand-blue text-white' },
+                    { val: '하프 (21.1km)', label: '21.1', color: 'bg-ink-900 text-white' },
+                  ].map((c) => (
+                    <label key={c.val} className={`cursor-pointer rounded-2xl p-5 text-center transition-all hover:scale-[1.02] ${
+                      form.course === c.val
+                        ? `${c.color} ring-4 ring-brand-blue ring-offset-2`
+                        : 'bg-ink-100 text-ink-700 hover:bg-ink-300'
                     }`}>
-                      <input type="radio" name="course" value={c} checked={form.course === c} onChange={handleChange} className="hidden" />
-                      <span className="block font-bold mb-1" style={{ fontFamily: 'var(--font-display)' }}>{c.split(' ')[0]}</span>
-                      <span className="text-xs opacity-70">{c.includes('하프') ? '하프' : ''}</span>
+                      <input type="radio" name="course" value={c.val} checked={form.course === c.val} onChange={handleChange} className="hidden" />
+                      <span className="block font-black text-3xl leading-none mb-1">{c.label}</span>
+                      <span className="text-[10px] font-bold tracking-wider uppercase opacity-80">KM</span>
                     </label>
                   ))}
                 </div>
               </div>
               <div>
-                <label className="block text-white/60 text-xs uppercase tracking-wider mb-2">티셔츠 사이즈 *</label>
-                <select
-                  name="shirt_size" value={form.shirt_size} onChange={handleChange}
-                  className="w-full bg-[#0A0A0A] border border-white/10 text-white px-4 py-3 focus:outline-none focus:border-[#C8102E] transition-colors"
-                >
-                  <option value="">선택해주세요</option>
+                <label className="block text-ink-900 font-bold text-sm mb-3">티셔츠 사이즈 *</label>
+                <div className="grid grid-cols-6 gap-2">
                   {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map((s) => (
-                    <option key={s} value={s}>{s}</option>
+                    <label key={s} className={`cursor-pointer rounded-xl py-3 text-center font-black text-sm transition-all hover:scale-105 ${
+                      form.shirt_size === s
+                        ? 'bg-brand-blue text-white shadow-lg shadow-brand-blue/30'
+                        : 'bg-ink-100 text-ink-700 hover:bg-ink-300'
+                    }`}>
+                      <input type="radio" name="shirt_size" value={s} checked={form.shirt_size === s} onChange={handleChange} className="hidden" />
+                      {s}
+                    </label>
                   ))}
-                </select>
+                </div>
               </div>
             </>
           )}
 
-          {/* Step 2: 확인 */}
           {step === 2 && (
             <>
-              <div className="space-y-3 bg-white/5 p-6 text-sm">
-                <h3 className="text-white font-semibold mb-4">신청 내용 확인</h3>
+              <h3 className="text-ink-900 font-black text-xl mb-4">신청 내용 확인</h3>
+              <div className="space-y-1 bg-ink-100 rounded-2xl p-6">
                 {[
                   { label: '이름', value: form.name },
                   { label: '이메일', value: form.email },
@@ -247,38 +244,38 @@ export default function RegisterPage() {
                   { label: '코스', value: form.course },
                   { label: '티셔츠', value: form.shirt_size },
                 ].map((row) => (
-                  <div key={row.label} className="flex justify-between">
-                    <span className="text-white/40">{row.label}</span>
-                    <span className="text-white">{row.value}</span>
+                  <div key={row.label} className="flex justify-between py-2.5 border-b border-white last:border-0">
+                    <span className="text-ink-500 font-semibold text-sm">{row.label}</span>
+                    <span className="text-ink-900 font-bold">{row.value}</span>
                   </div>
                 ))}
               </div>
-              <label className="flex items-start gap-3 cursor-pointer group">
+              <label className="flex items-start gap-3 cursor-pointer group bg-brand-yellow-light p-4 rounded-2xl">
                 <input
                   type="checkbox" name="agree" checked={form.agree} onChange={handleChange}
-                  className="mt-1 accent-[#C8102E]"
+                  className="mt-1 w-5 h-5 accent-brand-blue cursor-pointer shrink-0"
                 />
-                <span className="text-white/50 text-sm leading-relaxed group-hover:text-white/70 transition-colors">
-                  개인정보 수집 및 이용에 동의합니다. 수집된 정보는 대회 운영 목적으로만 사용됩니다.
+                <span className="text-ink-900 text-sm leading-relaxed font-medium">
+                  <span className="font-bold">개인정보 수집 및 이용에 동의합니다.</span><br />
+                  수집된 정보는 대회 운영 목적으로만 사용됩니다.
                 </span>
               </label>
             </>
           )}
 
-          {/* 에러 */}
           {error && (
-            <p className="text-[#FF6B35] text-sm border border-[#FF6B35]/30 bg-[#FF6B35]/5 px-4 py-2">
+            <p className="text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3 font-semibold text-sm">
               ⚠ {error}
             </p>
           )}
         </div>
 
         {/* 버튼 */}
-        <div className="flex justify-between mt-6">
+        <div className="flex justify-between mt-6 gap-3">
           {step > 0 ? (
             <button
               onClick={() => setStep((s) => s - 1)}
-              className="px-6 py-3 border border-white/20 text-white/60 hover:border-white/40 hover:text-white transition-colors text-sm"
+              className="px-8 py-4 bg-white border-2 border-ink-300 text-ink-700 rounded-full font-bold hover:border-ink-900 hover:text-ink-900 transition-colors"
             >
               ← 이전
             </button>
@@ -287,7 +284,7 @@ export default function RegisterPage() {
           {step < 2 ? (
             <button
               onClick={handleNext}
-              className="px-10 py-3 bg-[#C8102E] text-white font-semibold hover:bg-[#FF6B35] transition-colors text-sm"
+              className="btn-primary px-10 py-4 bg-brand-blue text-white rounded-full font-bold shadow-lg shadow-brand-blue/30 hover:bg-brand-blue-dark ml-auto"
             >
               다음 →
             </button>
@@ -295,7 +292,7 @@ export default function RegisterPage() {
             <button
               onClick={handleSubmit}
               disabled={loading}
-              className="px-10 py-3 bg-[#C8102E] text-white font-semibold hover:bg-[#FF6B35] transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary px-10 py-4 bg-brand-yellow text-ink-900 rounded-full font-black shadow-lg hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed ml-auto"
             >
               {loading ? '제출 중...' : '신청 완료 →'}
             </button>

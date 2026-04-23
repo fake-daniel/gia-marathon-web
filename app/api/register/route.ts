@@ -6,12 +6,10 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const { name, email, phone, affiliation, course, shirt_size } = body
 
-    // 기본 유효성 검사
     if (!name || !email || !phone || !affiliation || !course || !shirt_size) {
       return NextResponse.json({ error: '모든 필드를 입력해주세요.' }, { status: 400 })
     }
 
-    // 이메일 중복 체크
     const { data: existing } = await supabase
       .from('participants')
       .select('id')
@@ -22,7 +20,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: '이미 신청된 이메일입니다.' }, { status: 409 })
     }
 
-    // Supabase에 삽입
     const { error } = await supabase.from('participants').insert([
       { name, email, phone, affiliation, course, shirt_size }
     ])
