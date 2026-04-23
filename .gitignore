@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# environment variables (절대 GitHub에 올리지 마세요!)
+.env.local
+.env*.local
+
+# Next.js
+.next/
+out/
+
+# build
+dist/
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+
+# Vercel
+.vercel
