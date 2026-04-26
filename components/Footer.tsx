@@ -15,13 +15,13 @@ export default function Footer() {
                 </div>
               </div>
               <div>
-                <p className="font-bold text-base">Run for 독거노인</p>
-                <p className="text-xs text-white/60">Han-gang Charity Marathon</p>
+                <p className="font-bold text-base">Run for Peace</p>
+                <p className="text-xs text-white/60">3rd Edition · For Single Elderly</p>
               </div>
             </div>
             <p className="text-white/70 text-sm leading-relaxed max-w-md">
-              한 걸음 한 걸음이 누군가의 하루를 따뜻하게 만듭니다.
-              당신의 달리기가 독거노인을 위한 희망이 됩니다.
+              평화는 멀리 있지 않습니다. 한 걸음, 한 걸음이 모여 누군가의 삶을 따뜻하게 만듭니다.
+              제3회 〈Run for Peace〉는 독거노인을 위한 자선 마라톤입니다.
             </p>
           </div>
 
@@ -48,7 +48,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-8 text-xs text-white/50">
-          <p>© XXXX Run for 독거노인. All rights reserved.</p>
+          <p>© XXXX Run for Peace. All rights reserved.</p>
           <p>주최 · ○○대학교  |  주관 · ○○대학교 체육부</p>
         </div>
       </div>

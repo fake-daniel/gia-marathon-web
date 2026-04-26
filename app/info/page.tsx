@@ -17,21 +17,11 @@ const courses = [
     name: '10KM',
     distance: '10',
     level: 'CHALLENGE',
-    levelKo: '중급자',
+    levelKo: '중급자 이상',
     color: 'bg-brand-blue text-white',
     accent: 'text-brand-yellow',
     desc: '꾸준히 달려온 러너에게 적합한 코스. 한강공원 일대를 여유롭게 관통합니다.',
     time: '약 50~90분',
-  },
-  {
-    name: 'HALF',
-    distance: '21.1',
-    level: 'HALF MARATHON',
-    levelKo: '숙련자',
-    color: 'bg-ink-900 text-white',
-    accent: 'text-brand-yellow',
-    desc: '하프마라톤 풀 코스. 도전적인 거리로 진정한 러너를 위한 최고의 경험.',
-    time: '약 90~150분',
   },
 ]
 
@@ -47,13 +37,11 @@ const benefits = [
 const schedule = [
   { time: '07:00', event: '현장 등록 및 번호표 배부 시작', active: false },
   { time: '08:00', event: '대회 개회식 및 준비 운동', active: false },
-  { time: '08:30', event: '하프마라톤(21.1km) 출발', active: true },
-  { time: '09:00', event: '10km 코스 출발', active: true },
-  { time: '09:30', event: '5km 코스 출발', active: true },
-  { time: '11:00', event: '5km 코스 종료 예정', active: false },
-  { time: '12:00', event: '10km 코스 종료 예정', active: false },
-  { time: '13:00', event: '하프마라톤 종료 예정', active: false },
-  { time: '14:00', event: '시상식 및 폐회식', active: false },
+  { time: '08:30', event: '10km 코스 출발', active: true },
+  { time: '09:00', event: '5km 코스 출발', active: true },
+  { time: '10:30', event: '5km 코스 종료 예정', active: false },
+  { time: '11:30', event: '10km 코스 종료 예정', active: false },
+  { time: '12:30', event: '시상식 및 폐회식', active: false },
 ]
 
 export default function InfoPage() {
@@ -91,31 +79,32 @@ export default function InfoPage() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 gap-5">
             {courses.map((course) => (
-              <div key={course.name} className={`${course.color} rounded-3xl p-8 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500 cursor-pointer`}>
+              <div key={course.name} className={`${course.color} rounded-3xl p-10 relative overflow-hidden group hover:scale-[1.02] transition-transform duration-500 cursor-pointer`}>
                 <div className="relative z-10">
                   <span className={`${course.accent} font-black text-xs tracking-[0.2em] block mb-4`}>
                     {course.level}
                   </span>
                   <div className="flex items-baseline gap-1 mb-4">
-                    <span className="text-8xl font-black leading-none">{course.distance}</span>
-                    <span className="text-2xl font-black">km</span>
+                    <span className="text-9xl font-black leading-none">{course.distance}</span>
+                    <span className="text-3xl font-black">km</span>
                   </div>
-                  <p className="text-sm font-medium opacity-90 leading-relaxed mb-6">{course.desc}</p>
+                  <p className="text-base font-medium opacity-90 leading-relaxed mb-6">{course.desc}</p>
                   <div className="flex items-center gap-2 text-sm font-bold pt-4 border-t border-current/20">
                     <span>⏱</span>
                     <span>{course.time}</span>
+                    <span className="ml-auto">{course.levelKo}</span>
                   </div>
                 </div>
-                <div className="absolute -bottom-10 -right-4 text-[14rem] font-black opacity-[0.06] leading-none pointer-events-none">
+                <div className="absolute -bottom-12 -right-8 text-[16rem] font-black opacity-[0.06] leading-none pointer-events-none">
                   {course.distance}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* 코스 맵 (플레이스홀더) */}
+          {/* 코스 맵 */}
           <div className="mt-8 relative rounded-3xl overflow-hidden bg-ink-100 h-72 md:h-96">
             <Image
               src="https://images.unsplash.com/photo-1560457079-9a6532ccb118?w=2000&auto=format&fit=crop&q=80"
@@ -146,7 +135,7 @@ export default function InfoPage() {
                 당일<br />일정
               </h2>
               <p className="text-ink-500 leading-relaxed">
-                오전 7시 등록 시작, 오후 2시 폐회식까지.<br />
+                오전 7시 등록 시작, 12시 30분 폐회식까지.<br />
                 모든 타임라인을 확인하세요.
               </p>
               <p className="text-xs text-ink-500 mt-6 italic">

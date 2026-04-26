@@ -4,11 +4,11 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Run for 독거노인 · 한강 자선 마라톤',
-  description: '함께 달려서 따뜻한 세상을 만듭니다. 독거노인을 위한 자선 마라톤에 참여하세요.',
+  title: 'Run for Peace · 한강 자선 마라톤',
+  description: '평화를 위한 달리기. 제3회 Run for Peace는 독거노인을 위한 자선 마라톤입니다.',
   openGraph: {
-    title: 'Run for 독거노인',
-    description: '한강에서 함께 달리며 따뜻한 세상을 만드는 자선 마라톤',
+    title: 'Run for Peace',
+    description: '평화를 위해 달립니다. 한강에서 함께하는 자선 마라톤.',
     type: 'website',
   },
 }

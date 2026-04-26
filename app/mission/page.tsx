@@ -13,18 +13,64 @@ export default function MissionPage() {
             Our Mission
           </p>
           <h1 className="text-5xl md:text-8xl font-black text-ink-900 leading-[0.95] mb-8 text-balance">
-            왜 우리가<br />
-            <span className="highlight-yellow">함께 달리는가</span>
+            평화는<br />
+            <span className="highlight-yellow">가까이에 있습니다</span>
           </h1>
           <p className="text-xl md:text-2xl text-ink-700 leading-relaxed max-w-2xl font-medium">
-            단순한 스포츠 이벤트가 아닙니다.<br />
-            달리기로 만들어가는 따뜻한 연대의 이야기입니다.
+            거창한 구호가 아닙니다.<br />
+            우리 곁의 이웃을 향한 작은 손길에서 평화는 시작됩니다.
           </p>
         </div>
       </section>
 
-      {/* 큰 인용 문구 */}
+      {/* 시리즈 소개 */}
       <section className="py-24 px-6 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-brand-blue font-bold text-sm tracking-widest uppercase mb-4">The Series</p>
+            <h2 className="text-3xl md:text-5xl font-black text-ink-900 leading-tight">
+              매년, 다른 이웃을 위해 달립니다
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              { num: '1ST', topic: '아동 복지', desc: '결식아동을 위한 도시락 사업에 기부했습니다.', status: 'past' },
+              { num: '2ND', topic: '환경 보호', desc: '한강 정화 활동과 환경 단체에 기부했습니다.', status: 'past' },
+              { num: '3RD', topic: '독거노인', desc: '혼자 사시는 어르신들을 위한 정서 지원과 생필품 지원에 기부됩니다.', status: 'current' },
+            ].map((edition) => (
+              <div
+                key={edition.num}
+                className={`rounded-2xl p-6 md:p-8 flex flex-col md:flex-row md:items-center gap-4 md:gap-8 ${
+                  edition.status === 'current'
+                    ? 'bg-brand-blue text-white border-2 border-brand-blue shadow-xl shadow-brand-blue/20'
+                    : 'bg-ink-100 text-ink-700'
+                }`}
+              >
+                <div className={`shrink-0 ${edition.status === 'current' ? 'text-brand-yellow' : 'text-ink-500'} font-black text-3xl md:text-4xl w-20`}>
+                  {edition.num}
+                </div>
+                <div className="flex-1">
+                  <h3 className={`font-black text-xl md:text-2xl mb-1 ${edition.status === 'current' ? 'text-white' : 'text-ink-900'}`}>
+                    {edition.topic}
+                  </h3>
+                  <p className={`${edition.status === 'current' ? 'text-white/90' : 'text-ink-500'} text-sm md:text-base leading-relaxed`}>
+                    {edition.desc}
+                  </p>
+                </div>
+                <span className={`shrink-0 text-xs font-black px-3 py-1.5 rounded-full ${
+                  edition.status === 'current' ? 'bg-brand-yellow text-ink-900' : 'bg-white text-ink-500'
+                }`}>
+                  {edition.status === 'current' ? '진행 중' : '종료'}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 큰 인용 문구 */}
+      <section className="py-24 px-6 bg-ink-100">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-brand-blue font-black text-5xl md:text-7xl leading-none mb-6">"</p>
           <blockquote className="text-2xl md:text-4xl font-bold text-ink-900 leading-snug text-balance mb-8">
@@ -38,7 +84,7 @@ export default function MissionPage() {
       </section>
 
       {/* 5가지 미션 */}
-      <section className="py-24 px-6 bg-ink-100">
+      <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <p className="inline-block bg-brand-yellow text-ink-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
@@ -54,14 +100,14 @@ export default function MissionPage() {
               {
                 num: '01',
                 title: '참가비 전액이 기부됩니다',
-                desc: '여러분이 내신 참가비 100%는 지역 독거노인 지원 사업에 직접 전달됩니다. 식사 지원, 생필품 키트, 주거 개선 등 실질적인 도움으로 이어집니다.',
+                desc: '여러분이 내신 참가비 100%는 독거노인 지원 사업에 직접 전달됩니다. 식사 지원, 생필품 키트, 정서 지원 프로그램 등 실질적인 도움으로 이어집니다.',
                 color: 'bg-brand-blue text-white',
                 accent: 'text-brand-yellow',
               },
               {
                 num: '02',
                 title: '누구나 완주할 수 있습니다',
-                desc: '5km, 10km, 하프(21.1km) 세 가지 코스로 운영되어 초보자부터 숙련된 러너까지 자신의 페이스로 도전하고 완주할 수 있습니다.',
+                desc: '5km, 10km 두 가지 코스로 운영되어 초보자부터 숙련된 러너까지 자신의 페이스로 도전하고 완주할 수 있습니다.',
                 color: 'bg-white text-ink-900 border-2 border-ink-900',
                 accent: 'text-brand-blue',
               },
@@ -81,8 +127,8 @@ export default function MissionPage() {
               },
               {
                 num: '05',
-                title: '의미 있는 하루의 시작',
-                desc: '이 마라톤은 일회성 이벤트가 아닙니다. 건강한 습관과 사회적 나눔, 두 가지 모두를 시작할 수 있는 특별한 계기입니다.',
+                title: '평화를 향한 시리즈의 일부',
+                desc: '〈Run for Peace〉는 매년 다른 사회 이슈에 주목하는 시리즈입니다. 이 시리즈에 참여한다는 것은 지속적인 변화의 일부가 된다는 의미입니다.',
                 color: 'bg-ink-900 text-white',
                 accent: 'text-brand-yellow',
               },

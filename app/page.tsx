@@ -1,47 +1,43 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import HeroSlideshow from '@/components/HeroSlideshow'
 
 export default function HomePage() {
   return (
     <div className="bg-white">
 
       {/* ═══════════════════════════════════════════
-          HERO — 한강 배경 + 따뜻한 카피
+          HERO — 5장 슬라이드쇼 + Run for Peace 컨셉
           ═══════════════════════════════════════════ */}
       <section className="relative min-h-screen flex items-end overflow-hidden">
-        {/* 배경 이미지 (한강) */}
-        <div className="absolute inset-0">
-          <Image
-            src="https://images.unsplash.com/photo-1548013146-72479768bada?w=2000&auto=format&fit=crop&q=80"
-            alt="한강 러닝"
-            fill
-            priority
-            className="img-cover"
-          />
-          <div className="absolute inset-0 hero-overlay" />
-        </div>
+        {/* 슬라이드쇼 배경 */}
+        <HeroSlideshow />
 
         {/* 콘텐츠 */}
         <div className="relative z-10 w-full">
           <div className="max-w-7xl mx-auto px-6 pb-20 pt-32">
-            {/* 상단 날짜 뱃지 */}
-            <div className="inline-flex items-center gap-2.5 bg-brand-yellow text-ink-900 px-4 py-2 rounded-full mb-8 font-bold text-sm shadow-lg">
-              <span className="w-2 h-2 bg-ink-900 rounded-full" />
-              XXXX년 XX월 XX일 (토) · 한강공원
+            {/* 시리즈 뱃지 */}
+            <div className="inline-flex items-center gap-3 mb-8">
+              <span className="bg-brand-yellow text-ink-900 px-4 py-2 rounded-full font-black text-xs tracking-widest shadow-lg">
+                3RD EDITION
+              </span>
+              <span className="text-white/90 text-xs font-bold tracking-widest uppercase">
+                XXXX년 XX월 XX일 · 한강공원
+              </span>
             </div>
 
-            <h1 className="text-white font-black leading-[0.95] mb-8 tracking-tight">
-              <span className="block text-[clamp(3rem,9vw,7rem)] text-balance">
-                함께 달리는
+            <h1 className="text-white font-black leading-[0.9] mb-8 tracking-tight">
+              <span className="block text-[clamp(2.5rem,8vw,6rem)] text-balance text-white/90">
+                평화를 위해 달립니다
               </span>
-              <span className="block text-[clamp(3rem,9vw,7rem)] text-balance">
-                <span className="text-brand-yellow">따뜻한 한 걸음</span>
+              <span className="block text-[clamp(4rem,13vw,11rem)] text-balance mt-2">
+                Run for <span className="text-brand-yellow">Peace</span>
               </span>
             </h1>
 
             <p className="text-white/90 text-xl md:text-2xl max-w-2xl leading-relaxed mb-10 font-medium">
-              당신의 달리기가 독거노인을 위한 희망이 됩니다.<br />
-              한강에서 시작되는 특별한 자선 마라톤.
+              세 번째 평화의 달리기. 이번 주제는 <span className="highlight-yellow text-ink-900">독거노인</span>입니다.<br />
+              당신의 한 걸음이 우리 이웃의 따뜻한 하루를 만듭니다.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -63,9 +59,9 @@ export default function HomePage() {
             {/* 하단 주요 정보 */}
             <div className="mt-20 grid grid-cols-3 gap-6 max-w-2xl">
               {[
-                { label: '코스', value: '3종' },
-                { label: '예상 참가자', value: 'XXX+' },
-                { label: '기부처', value: '독거노인' },
+                { label: '에디션', value: '3RD' },
+                { label: '이번 주제', value: '독거노인' },
+                { label: '코스', value: '2종' },
               ].map((item) => (
                 <div key={item.label} className="border-l-2 border-brand-yellow pl-4">
                   <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-1">{item.label}</p>
@@ -82,9 +78,9 @@ export default function HomePage() {
             <div className="marquee-inner">
               {Array.from({ length: 8 }).map((_, i) => (
                 <span key={i} className="flex items-center gap-6 px-6 text-ink-900 font-black text-sm tracking-wide">
-                  RUN FOR 독거노인
+                  RUN FOR PEACE
                   <span className="text-xl">●</span>
-                  HAN-GANG CHARITY MARATHON
+                  3RD · FOR SINGLE ELDERLY
                   <span className="text-xl">●</span>
                   XXXX.XX.XX
                   <span className="text-xl">●</span>
@@ -96,7 +92,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          마라톤 소개
+          시리즈 소개 — Run for Peace 시리즈
           ═══════════════════════════════════════════ */}
       <section className="py-24 md:py-32 px-6 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 dot-pattern opacity-50" />
@@ -105,46 +101,95 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-16 items-start">
             <div>
               <p className="inline-block bg-brand-blue-light text-brand-blue px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-                About the Marathon
+                About the Series
               </p>
               <h2 className="text-4xl md:text-6xl font-black text-ink-900 leading-tight mb-8 text-balance">
-                단순한 달리기가<br />
-                아닌, <span className="highlight-yellow">나눔의 여정</span>
+                〈Run for Peace〉는<br />
+                <span className="highlight-yellow">계속됩니다</span>
               </h2>
             </div>
             <div className="pt-4">
               <p className="text-ink-700 text-lg leading-relaxed mb-6">
-                〈Run for 독거노인〉은 ○○대학교가 주최하는 자선 마라톤 대회입니다.
-                참가자들의 참가비 전액이 독거노인 지원 사업에 기부되며,
-                학내 구성원뿐 아니라 지역 주민 누구나 함께할 수 있습니다.
+                〈Run for Peace〉는 ○○대학교가 주최하는 자선 마라톤 시리즈입니다.
+                매 회차마다 우리 사회의 다른 이웃을 주제로 삼아,
+                참가비 전액을 해당 단체에 기부합니다.
               </p>
-              <p className="text-ink-500 leading-relaxed">
-                서울 한강공원의 아름다운 코스를 달리며,
-                우리 이웃의 따뜻한 하루를 만드는 일에 함께해 주세요.
+              <p className="text-ink-500 leading-relaxed mb-6">
+                제3회는 <span className="font-bold text-ink-900">독거노인</span>을 위한 달리기.
+                혼자 보내는 시간이 많은 어르신들에게 따뜻한 손길이 닿을 수 있도록,
+                여러분의 참여가 큰 힘이 됩니다.
               </p>
             </div>
           </div>
 
-          {/* 3개 카드 */}
-          <div className="mt-20 grid md:grid-cols-3 gap-6">
+          {/* 시리즈 타임라인 */}
+          <div className="mt-16 grid md:grid-cols-3 gap-4">
+            {[
+              { num: '1ST', topic: '아동 복지', status: '종료' },
+              { num: '2ND', topic: '환경 보호', status: '종료' },
+              { num: '3RD', topic: '독거노인', status: '진행 중', current: true },
+            ].map((edition) => (
+              <div
+                key={edition.num}
+                className={`rounded-2xl p-6 border-2 ${
+                  edition.current
+                    ? 'bg-brand-blue text-white border-brand-blue shadow-xl shadow-brand-blue/20'
+                    : 'bg-ink-100 border-transparent text-ink-700'
+                }`}
+              >
+                <div className="flex items-baseline justify-between mb-3">
+                  <span className={`font-black text-2xl ${edition.current ? 'text-brand-yellow' : 'text-ink-500'}`}>
+                    {edition.num}
+                  </span>
+                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${
+                    edition.current ? 'bg-brand-yellow text-ink-900' : 'bg-white text-ink-500'
+                  }`}>
+                    {edition.status}
+                  </span>
+                </div>
+                <p className={`font-bold text-lg ${edition.current ? 'text-white' : 'text-ink-900'}`}>
+                  {edition.topic}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          3개 카드 — 한강 / 누구나 / 기부
+          ═══════════════════════════════════════════ */}
+      <section className="py-24 md:py-32 px-6 bg-ink-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="inline-block bg-brand-yellow text-ink-900 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
+              Why This Marathon
+            </p>
+            <h2 className="text-4xl md:text-6xl font-black text-ink-900 leading-tight">
+              단순한 달리기가 아닌,<br />
+              <span className="highlight-yellow">나눔의 여정</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
             {[
               {
                 num: '01',
                 title: '한강에서 달린다',
                 desc: '서울 한강공원의 아름다운 강변 코스에서 진행됩니다.',
-                bg: 'https://images.unsplash.com/photo-1502104034360-73176bb1e92e?w=800&auto=format&fit=crop&q=80',
+                bg: 'https://images.unsplash.com/photo-1684847413986-940679c536ce?q=80&w=1200&auto=format&fit=crop',
               },
               {
                 num: '02',
                 title: '누구나 참여 가능',
-                desc: '5km, 10km, 하프 세 코스로 초보자부터 러너까지 환영합니다.',
-                bg: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&auto=format&fit=crop&q=80',
+                desc: '5km, 10km 두 코스로 초보자부터 러너까지 환영합니다.',
+                bg: 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1200&auto=format&fit=crop&q=80',
               },
               {
                 num: '03',
                 title: '참가비 전액 기부',
-                desc: '여러분이 내는 참가비가 독거노인을 위한 따뜻한 지원금이 됩니다.',
-                bg: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&auto=format&fit=crop&q=80',
+                desc: '여러분의 참가비가 독거노인을 위한 따뜻한 지원금이 됩니다.',
+                bg: 'https://images.unsplash.com/photo-1607582544954-1ab7e3b6d62d?w=1200&auto=format&fit=crop&q=80',
               },
             ].map((card) => (
               <div key={card.num} className="group relative overflow-hidden rounded-3xl aspect-[4/5] cursor-pointer">
@@ -154,7 +199,7 @@ export default function HomePage() {
                   fill
                   className="img-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink-900/90 via-ink-900/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 via-ink-900/40 to-transparent" />
                 <div className="absolute inset-0 p-7 flex flex-col justify-between">
                   <span className="text-brand-yellow font-black text-5xl">{card.num}</span>
                   <div>
@@ -172,7 +217,6 @@ export default function HomePage() {
           숫자로 보는 마라톤
           ═══════════════════════════════════════════ */}
       <section className="py-24 md:py-32 px-6 bg-brand-blue text-white relative overflow-hidden">
-        {/* 배경 장식 */}
         <div
           className="absolute inset-0 opacity-10"
           style={{
@@ -194,8 +238,8 @@ export default function HomePage() {
             {[
               { num: '100%', label: '참가비 전액 기부' },
               { num: 'XXX+', label: '예상 참가 인원' },
-              { num: '3', label: '선택 가능 코스' },
-              { num: '1st', label: '제1회 자선 대회' },
+              { num: '2', label: '선택 가능 코스' },
+              { num: '3RD', label: 'Run for Peace' },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-5xl md:text-7xl font-black text-brand-yellow mb-3 counter">{stat.num}</p>
@@ -207,9 +251,9 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          코스 프리뷰
+          코스 프리뷰 — 5km, 10km 두 종류
           ═══════════════════════════════════════════ */}
-      <section className="py-24 md:py-32 px-6 bg-ink-100 relative overflow-hidden">
+      <section className="py-24 md:py-32 px-6 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
@@ -225,20 +269,19 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 gap-5">
             {[
-              { km: '5', label: 'FUN RUN', desc: '처음 달리는 분들을 위한 친근한 코스', color: 'bg-brand-yellow text-ink-900' },
-              { km: '10', label: 'CHALLENGE', desc: '꾸준히 달려온 러너를 위한 도전 코스', color: 'bg-brand-blue text-white' },
-              { km: '21.1', label: 'HALF', desc: '진정한 러너를 위한 하프 풀 코스', color: 'bg-ink-900 text-white' },
+              { km: '5', label: 'FUN RUN', desc: '처음 달리는 분들을 위한 친근한 코스. 한강의 풍경을 여유롭게 즐기며 완주할 수 있습니다.', color: 'bg-brand-yellow text-ink-900' },
+              { km: '10', label: 'CHALLENGE', desc: '꾸준히 달려온 러너를 위한 도전 코스. 한강공원 일대를 여유롭게 관통합니다.', color: 'bg-brand-blue text-white' },
             ].map((course) => (
-              <div key={course.km} className={`${course.color} rounded-3xl p-8 relative overflow-hidden group cursor-pointer hover:scale-[1.02] transition-transform duration-500`}>
+              <div key={course.km} className={`${course.color} rounded-3xl p-10 relative overflow-hidden group cursor-pointer hover:scale-[1.02] transition-transform duration-500`}>
                 <div className="flex items-baseline gap-2 mb-6">
-                  <span className="text-7xl md:text-8xl font-black leading-none">{course.km}</span>
-                  <span className="text-2xl font-bold">km</span>
+                  <span className="text-7xl md:text-9xl font-black leading-none">{course.km}</span>
+                  <span className="text-3xl font-bold">km</span>
                 </div>
                 <p className="text-xs font-black tracking-widest uppercase opacity-80 mb-3">{course.label}</p>
-                <p className="text-sm font-medium opacity-90 leading-relaxed">{course.desc}</p>
-                <div className="absolute -bottom-6 -right-6 text-[12rem] font-black opacity-5 leading-none">{course.km}</div>
+                <p className="text-base font-medium opacity-90 leading-relaxed max-w-md">{course.desc}</p>
+                <div className="absolute -bottom-12 -right-8 text-[16rem] font-black opacity-5 leading-none pointer-events-none">{course.km}</div>
               </div>
             ))}
           </div>
@@ -267,7 +310,7 @@ export default function HomePage() {
 
           <h2 className="text-4xl md:text-7xl font-black mb-6 leading-tight text-balance">
             당신의 한 걸음이<br />
-            <span className="text-brand-yellow">희망</span>이 됩니다.
+            <span className="text-brand-yellow">평화</span>가 됩니다.
           </h2>
           <p className="text-white/90 text-lg md:text-xl mb-10 max-w-xl mx-auto">
             함께 달려요. 지금 바로 참가 신청하세요.

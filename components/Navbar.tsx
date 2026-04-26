@@ -22,7 +22,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // 홈이 아니거나 스크롤되면 흰 배경
   const solid = !isHome || scrolled
 
   return (
@@ -44,10 +43,10 @@ export default function Navbar() {
           </div>
           <div className="flex flex-col leading-none">
             <span className={`font-bold text-sm tracking-tight transition-colors ${solid ? 'text-ink-900' : 'text-white'}`}>
-              Run for 독거노인
+              Run for Peace
             </span>
             <span className={`text-[10px] font-medium tracking-wide transition-colors ${solid ? 'text-ink-500' : 'text-white/80'}`}>
-              HAN-GANG CHARITY MARATHON
+              3RD · FOR SINGLE ELDERLY
             </span>
           </div>
         </Link>

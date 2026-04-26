@@ -119,7 +119,7 @@ export default function RegisterPage() {
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
         <p className="inline-block bg-brand-blue text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-          Registration
+          Registration · 3rd Run for Peace
         </p>
         <h1 className="text-5xl md:text-7xl font-black text-ink-900 mb-3 leading-tight">참가 신청</h1>
         <p className="text-ink-500 mb-12 text-lg">세 단계만 거치면 신청이 완료됩니다.</p>
@@ -196,20 +196,19 @@ export default function RegisterPage() {
               </div>
               <div>
                 <label className="block text-ink-900 font-bold text-sm mb-3">참가 코스 *</label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                   {[
                     { val: '5km', label: '5', color: 'bg-brand-yellow text-ink-900' },
                     { val: '10km', label: '10', color: 'bg-brand-blue text-white' },
-                    { val: '하프 (21.1km)', label: '21.1', color: 'bg-ink-900 text-white' },
                   ].map((c) => (
-                    <label key={c.val} className={`cursor-pointer rounded-2xl p-5 text-center transition-all hover:scale-[1.02] ${
+                    <label key={c.val} className={`cursor-pointer rounded-2xl p-6 text-center transition-all hover:scale-[1.02] ${
                       form.course === c.val
                         ? `${c.color} ring-4 ring-brand-blue ring-offset-2`
                         : 'bg-ink-100 text-ink-700 hover:bg-ink-300'
                     }`}>
                       <input type="radio" name="course" value={c.val} checked={form.course === c.val} onChange={handleChange} className="hidden" />
-                      <span className="block font-black text-3xl leading-none mb-1">{c.label}</span>
-                      <span className="text-[10px] font-bold tracking-wider uppercase opacity-80">KM</span>
+                      <span className="block font-black text-4xl leading-none mb-1">{c.label}</span>
+                      <span className="text-xs font-bold tracking-wider uppercase opacity-80">KM</span>
                     </label>
                   ))}
                 </div>
